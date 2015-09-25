@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.rxy.test"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+
+        // dex突破65535的限制
+        multiDexEnabled true
+        // 默认是umeng的渠道
+        manifestPlaceholders = [CHANNEL_VALUE: "baidu"]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        release {
+            try {
+                keyAlias "test"
+                keyPassword KEY_PASSWORD
+                storeFile file("test.jks")
+                storePassword KEYSTORE_PASSWORD
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+
+    productFlavors{
+        wandoujia{}
+        _360{}
+        baidu{}
+        xiaomi{}
+        taobao{}
+        huawei{}
+    }
+
+    productFlavors.all{
+        flavor->flavor.manifestPlaceholders=[CHANNEL_VALUE:name]
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.facebook.fresco:fresco:0.6.0+'
+}

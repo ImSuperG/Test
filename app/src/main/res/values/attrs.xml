@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TimeLineView">
+        <attr name="begin_line" format="reference|color"/>
+        <attr name="end_line" format="reference|color"/>
+        <attr name="middle_line" format="reference|color"/>
+        <attr name="size_line" format="dimension"/>
+        <attr name="view_size" format="dimension"/>
+    </declare-styleable>
+</resources>
